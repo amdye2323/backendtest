@@ -16,12 +16,6 @@ public class TodoDto {
     @NotNull
     private String name;
 
-    @NotNull
     private Boolean completed;
 
-    private Date completedAt;
-
-    private Date createAt;
-
-    private Date updateAt;
 }

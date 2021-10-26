@@ -49,9 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         ,"/favicon.ico"
                         ,"/error"
                         ,"/"
-                        ,"/login",
-                        "/js/**",
-                        "/static/**"
                 );
     }
 
@@ -81,7 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
-                .antMatchers("/api/signup").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
 

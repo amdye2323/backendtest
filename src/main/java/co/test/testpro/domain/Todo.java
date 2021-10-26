@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Todo {
 
-    @Column(name = "name")
+    @Column(name = "name",unique = true)
     private String name;
 
     @Column(name = "completed",nullable = true)
@@ -27,13 +27,13 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "completed_at",nullable = true)
+    @Column(name = "completedat",nullable = true)
     private String completed_at;
 
-    @Column(name = "create_at",columnDefinition = "DEFAULT date_format(curDate(),'%Y-%m-%d')")
+    @Column(name = "createat",columnDefinition = "timestamp DEFAULT current_timestamp")
     private String create_at;
 
-    @Column(name = "update_at",columnDefinition = "DEFAULT '0000-00-00'")
+    @Column(name = "updateat",columnDefinition = "DATETIME DEFAULT '0000-00-00 00:00:00'")
     private String update_at;
 
 }

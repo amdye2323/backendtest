@@ -1,13 +1,9 @@
 spring:
-  h2:
-    console:
-      enabled: true
-
   datasource:
-    url: jdbc:mysql://rtbox.synology.me:3307/djangoDB?zeroDateTimeBehavior=convertToNull&useSSL=true&verifyServerCertificate=false&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://database-container:3306/testpor?zeroDateTimeBehavior=convertToNull&useSSL=false&verifyServerCertificate=false&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: flxjsbox@1016
+    username: mysql_user
+    password: mysql_password
 
   jpa:
     hibernate:
@@ -16,10 +12,6 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-
-  redis:
-    port: 6379
-    host: 172.17.0.2
 
 logging:
   level:

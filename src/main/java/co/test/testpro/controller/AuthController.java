@@ -1,13 +1,11 @@
 package co.test.testpro.controller;
 
-import co.test.testpro.dto.DefaultResponseDto;
 import co.test.testpro.dto.LoginDto;
 import co.test.testpro.dto.TokenDto;
 import co.test.testpro.jwt.JwtFilter;
 import co.test.testpro.jwt.TokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +27,6 @@ import java.util.HashMap;
 public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final StringRedisTemplate redisTemplate = new StringRedisTemplate();
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
@@ -60,16 +57,4 @@ public class AuthController {
         return new ResponseEntity<>(result, httpHeaders, HttpStatus.OK); //tokenDTo릴 이용해서 responsebody에도 넣어서 리턴
     }
 
-    @PostMapping("/auth")
-    public ResponseEntity<?> auth() {
-        return new ResponseEntity<>(new DefaultResponseDto(200,"로그아웃 되었습니다."), HttpStatus.OK);
-    }
-
-    @PostMapping("/logout")
-    @Transactional
-    public ResponseEntity<?> logout(String jwt){
-        User user = (User) tokenProvider.getAuthentication(jwt).getPrincipal();
-        logger.debug("로그아웃 유저 아이디 : '{}' , 유저 이름 : '{}'", user.getUserId(), user.getUsername());
-        return new ResponseEntity<>(new DefaultResponseDto(200,"로그아웃 되었습니다."), HttpStatus.OK);
-    }
 }

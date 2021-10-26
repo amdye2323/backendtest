@@ -1,5 +1,6 @@
 package co.test.testpro.repository;
 
+import co.test.testpro.domain.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

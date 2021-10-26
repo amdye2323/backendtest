@@ -6,7 +6,7 @@ FROM mysql:5.7
 ENV MYSQL_USER mysql_user
 ENV MYSQL_PASSWORD mysql_password
 ENV MYSQL_ROOT_PASSWORD mysql_root_password
-ENV MYSQL_DATABASE testpro
+ENV MYSQL_DATABASE testpor
 
 # 도커환경에서 컨테이너 생성시 스크립트를 실행하는 폴더로
 # 미리 작성된 스크립트들을 이동

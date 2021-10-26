@@ -4,14 +4,15 @@ services:
     # Dockerfile이 있는 위치
     build: ./database
     ports:
-      - 3306:3306
+      - "3306:3306"
   application:
     build: .
-    environment:  
-      MYSQL_DATABASE: testpro
+    environment:
+      MYSQL_DATABASE: testPor
       MYSQL_USER :  mysql_user
       MYSQL_PASSWORD : mysql_password
+      MYSQL_ROOT_PASSWORD : mysql_password
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - database-container

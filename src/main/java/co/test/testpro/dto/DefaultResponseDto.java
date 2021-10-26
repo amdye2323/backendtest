@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 public class DefaultResponseDto {
     private int status;
-    private String responseMessage;
+    private String error;
 }

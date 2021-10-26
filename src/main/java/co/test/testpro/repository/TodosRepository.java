@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface TodosRepository {
     Optional<Todo> findByTodoId(int id);
+    Optional<Todo> findByTodoName(String name);
     Optional<String> updateTodo(int id);
     Optional<String> createTodo(Todo todo);
     Optional<String> deleteTodo(int id);

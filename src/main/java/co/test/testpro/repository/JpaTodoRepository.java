@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +26,12 @@ public class JpaTodoRepository implements TodosRepository {
     @Override
     public Optional<Todo> findByTodoId(int id) {
         try {
-            Todo todo = em.createQuery("SELECT t FROM todo as t WHERE t.id = :id",Todo.class)
-                    .setParameter("id",id)
-                    .getSingleResult();
-            return Optional.ofNullable(todo);
-        }catch (Exception e){
+            Optional<Todo> todo = Optional.ofNullable(em.createQuery("SELECT t FROM Todo as t WHERE t.id = :id", Todo.class)
+                    .setParameter("id", id)
+                    .getSingleResult()
+            );
+            return todo;
+        }catch (NoResultException e){
             e.printStackTrace();
             logger.debug("조회에 실패했습니다.");
         }
@@ -36,14 +39,25 @@ public class JpaTodoRepository implements TodosRepository {
     }
 
     @Override
+    public Optional<Todo> findByTodoName(String name) {
+        try {
+            Todo todo = em.createQuery("SELECT t FROM Todo as t WHERE t.name = :name",Todo.class)
+                    .setParameter("name",name)
+                    .getSingleResult();
+            return Optional.ofNullable(todo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
     public Optional<String> updateTodo(int id) {
         try {
-            em.getTransaction().begin();
-            int result = em.createQuery("UPDATE todo as t SET t.completed = true WHERE t.id = :id")
+            int result = em.createQuery("UPDATE Todo as t SET t.completed = true WHERE t.id = :id")
                     .setParameter("id",id)
                     .executeUpdate();
-            em.getTransaction().commit();
-            em.close();
             if (result>=1){
                 return Optional.of("success");
             }
@@ -64,10 +78,11 @@ public class JpaTodoRepository implements TodosRepository {
             e.printStackTrace();
             logger.debug(todo.toString()+"생성에 실패하였습니다.");
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
+    @Transactional
     public Optional<String> deleteTodo(int id) {
         try {
             Todo todo = em.find(Todo.class,id);
@@ -78,13 +93,13 @@ public class JpaTodoRepository implements TodosRepository {
             e.printStackTrace();
             logger.debug(id + "번 삭제에 실패했습니다.");
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public Optional<List<Todo>> getTodoList(int limit,int skip) {
         try {
-            List<Todo> todos = em.createQuery("SELECT t FROM todo as t LIMIT :skip , :limit",Todo.class)
+            List<Todo> todos = em.createQuery("SELECT t FROM Todo as t LIMIT :skip , :limit",Todo.class)
                     .setParameter("skip",skip)
                     .setParameter("limit",limit)
                     .getResultList();
@@ -94,6 +109,6 @@ public class JpaTodoRepository implements TodosRepository {
             e.printStackTrace();
             logger.debug("리스트 호출에 실패했습니다.");
         }
-        return null;
+        return Optional.empty();
     }
 }
