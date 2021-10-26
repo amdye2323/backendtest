@@ -59,4 +59,12 @@ public class TodosService {
     public Optional<List<Todo>> findTodoList(int limit,int skip){
         return jpaTodoRepository.getTodoList(limit,skip);
     }
+
+    public Optional<Todo> imageUpload(Todo todo){
+        Optional<String> result = jpaTodoRepository.imageUpload(todo);
+        if(result.get().equals("success")){
+            return jpaTodoRepository.findByTodoId(todo.getId());
+        }
+        return null;
+    }
 }

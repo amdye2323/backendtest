@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
@@ -26,6 +27,15 @@ public class Todo {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "oriname")
+    private String oriname;
+
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "size")
+    private long size;
 
     @Column(name = "completedat",nullable = true)
     private String completed_at;

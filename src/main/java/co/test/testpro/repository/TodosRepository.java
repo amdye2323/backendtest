@@ -12,4 +12,5 @@ public interface TodosRepository {
     Optional<String> createTodo(Todo todo);
     Optional<String> deleteTodo(int id);
     Optional<List<Todo>> getTodoList(int limit,int skip);
+    Optional<String> imageUpload(Todo todo);
 }

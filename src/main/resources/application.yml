@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://database-container:3306/testpor?zeroDateTimeBehavior=convertToNull&useSSL=false&verifyServerCertificate=false&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://rtbox.synology.me:3307/testpor?zeroDateTimeBehavior=convertToNull&useSSL=false&verifyServerCertificate=false&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: mysql_user
-    password: mysql_password
+    username: root
+    password: returnBox!1016
 
   jpa:
     hibernate:

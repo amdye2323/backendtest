@@ -2,14 +2,15 @@ package co.test.testpro.controller;
 
 import co.test.testpro.domain.Todo;
 import co.test.testpro.dto.DefaultResponseDto;
-import co.test.testpro.dto.LoginDto;
 import co.test.testpro.dto.TodoDto;
 import co.test.testpro.service.TodosService;
-import org.json.simple.JSONObject;
+import co.test.testpro.util.FileHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,12 +18,14 @@ import java.util.Optional;
 
 @Controller
 @RestController
-@RequestMapping("/todos")
 public class TodoController {
 
     private final TodosService todosService;
 
-    public TodoController(TodosService todosService){
+    private final FileHandler fileHandler;
+
+    public TodoController(TodosService todosService , FileHandler fileHandler){
+        this.fileHandler = fileHandler;
         this.todosService = todosService;
     }
 
@@ -138,6 +141,31 @@ public class TodoController {
             }else{
                 return new ResponseEntity<>(todo,HttpStatus.OK);
             }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new DefaultResponseDto(500,"Server Error"),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * @param todoIds
+     * @param file
+     * 할일에 이미지를 업로드 한다.
+     * @return HttpResponse
+     * @throws Exception
+     */
+    @PostMapping(value = "/image")
+    public ResponseEntity<?> imageUpload(
+            @Valid @RequestParam("todoId") int todoIds,
+            @Valid @RequestParam("files") MultipartFile file
+    ) throws Exception{
+        try {
+            if(file==null){
+                return new ResponseEntity<>(new DefaultResponseDto(400,"File Error"),HttpStatus.BAD_REQUEST);
+            }
+            Todo todo = fileHandler.parseFileInfo(todoIds,file);
+            Optional<Todo> todo1 = todosService.imageUpload(todo);
+
         }catch (Exception e){
             e.printStackTrace();
         }

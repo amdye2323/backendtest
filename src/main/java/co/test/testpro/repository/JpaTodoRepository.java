@@ -111,4 +111,23 @@ public class JpaTodoRepository implements TodosRepository {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<String> imageUpload(Todo todo) {
+        try {
+            int result = em.createQuery("UPDATE Todo as t SET t.path = :path , t.oriname :oriname , t.size = :size WHERE t.id = :id")
+                    .setParameter("path",todo.getPath())
+                    .setParameter("oriname",todo.getOriname())
+                    .setParameter("size",todo.getSize())
+                    .setParameter("id",todo.getId())
+                    .executeUpdate();
+            if(result>=1){
+                return Optional.of("success");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.debug("이미지 업로드에 실패하였습니다.");
+        }
+        return Optional.empty();
+    }
 }
