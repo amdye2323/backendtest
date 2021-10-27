@@ -21,6 +21,9 @@ CREATE TABLE `user_authority` (
 
 CREATE TABLE `todo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `oriname` varchar(100) DEFAULT NULL,
+  `path` varchar(100) DEFAULT NULL,
+  `size` int(20) DEFAULT NULL,
   `completed` bit(1) DEFAULT NULL,
   `completedat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `createat` timestamp NOT NULL DEFAULT current_timestamp(),

@@ -154,7 +154,7 @@ public class TodoController {
      * @return HttpResponse
      * @throws Exception
      */
-    @PostMapping(value = "/image")
+    @PostMapping(value = "/todos/image")
     public ResponseEntity<?> imageUpload(
             @Valid @RequestParam("todoId") int todoIds,
             @Valid @RequestParam("files") MultipartFile file

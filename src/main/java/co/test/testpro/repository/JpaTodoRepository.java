@@ -69,6 +69,7 @@ public class JpaTodoRepository implements TodosRepository {
     }
 
     @Override
+    @Transactional
     public Optional<String> createTodo(Todo todo) {
         try {
             em.persist(todo);
@@ -113,6 +114,7 @@ public class JpaTodoRepository implements TodosRepository {
     }
 
     @Override
+    @Transactional
     public Optional<String> imageUpload(Todo todo) {
         try {
             int result = em.createQuery("UPDATE Todo as t SET t.path = :path , t.oriname :oriname , t.size = :size WHERE t.id = :id")

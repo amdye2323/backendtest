@@ -34,6 +34,11 @@ public class AuthController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
+    /**
+     * @param loginDto
+     * @return {"token":jwt , "user" : username }
+     * 로그인에 성공하면 jwt 토큰을 발급시켜준다.
+     */
     @PostMapping("/authenticate")
     public ResponseEntity<?> authorize(@Valid @RequestBody LoginDto loginDto) {
 
