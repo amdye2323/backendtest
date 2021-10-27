@@ -19,8 +19,7 @@ BackEnd TestProject
 - Java 8. version
 - Spring boot 2.5.3 version
 - mariaDB
-- Docker
-- Compose
+- Docker-Compose
 
 #### library
 
