@@ -28,3 +28,21 @@ BackEnd TestProject
 - Tomcat
 - JWT-Api
 - Jackson
+
+#### Jwt Api Auth
+
+- 현재 JWT 인증 방식 -> 로그인 발급 방식
+- 인증 가입 구현 안됨
+```
+    /api/authenticate
+    
+    {
+        "username" : "test",
+        "password" : "test
+    }
+```
+
+- 이후 Api Request 시 Header에 추가
+```
+    "Authorization": "Bearer " + 발급받은 jwt
+```
